@@ -1,112 +1,563 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Suhani Patel – .NET Developer & AI Integration Engineer</title>
-
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Suhani Patel — .NET Developer & AI Engineer</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=Manrope:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0a0e17;
+      --bg2: #0f1521;
+      --card: #131b2e;
+      --border: #1e2d4a;
+      --accent: #4f8ef7;
+      --accent2: #7dd3b0;
+      --accent3: #f7c94f;
+      --text: #e8edf5;
+      --muted: #7a8ba8;
+      --serif: 'DM Serif Display', serif;
+      --mono: 'DM Mono', monospace;
+      --sans: 'Manrope', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
     body {
-      font-family: Arial, Helvetica, sans-serif;
-      margin: 0;
-      padding: 0;
-      background: #f5f5f5;
-      color: #222;
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      font-size: 15px;
+      line-height: 1.7;
+      overflow-x: hidden;
     }
 
-    .menu {
-      background: #111;
-      padding: 15px 0;
-      text-align: center;
-      position: sticky;
-      top: 0;
-      z-index: 10;
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 18px 48px;
+      background: rgba(10,14,23,0.85);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-family: var(--mono); font-size: 13px; color: var(--accent);
+      letter-spacing: .08em; text-decoration: none;
+    }
+    .nav-links { display: flex; gap: 32px; list-style: none; }
+    .nav-links a {
+      color: var(--muted); font-size: 13px; text-decoration: none;
+      letter-spacing: .06em; text-transform: uppercase;
+      transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--text); }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      display: flex; align-items: center;
+      padding: 120px 48px 80px;
+      position: relative; overflow: hidden;
+    }
+    .hero-grid {
+      display: grid; grid-template-columns: 1fr 420px;
+      gap: 80px; align-items: center; max-width: 1200px; margin: 0 auto; width: 100%;
+    }
+    .hero-tag {
+      font-family: var(--mono); font-size: 12px; color: var(--accent);
+      letter-spacing: .12em; text-transform: uppercase;
+      display: inline-flex; align-items: center; gap: 8px; margin-bottom: 20px;
+    }
+    .hero-tag::before {
+      content:''; width:24px; height:1px; background: var(--accent);
+    }
+    h1 {
+      font-family: var(--serif); font-size: clamp(3rem, 6vw, 5.5rem);
+      line-height: 1.05; color: var(--text); font-weight: 400; margin-bottom: 10px;
+    }
+    h1 em { color: var(--accent); font-style: normal; }
+    .hero-role {
+      font-family: var(--mono); font-size: 14px; color: var(--accent2);
+      margin-bottom: 28px; letter-spacing: .04em;
+    }
+    .hero-desc {
+      color: var(--muted); font-size: 15px; max-width: 520px;
+      line-height: 1.8; margin-bottom: 40px;
+    }
+    .hero-btns { display: flex; gap: 16px; flex-wrap: wrap; }
+    .btn {
+      padding: 12px 28px; border-radius: 4px; font-size: 13px;
+      font-family: var(--mono); letter-spacing: .06em; cursor: pointer;
+      text-decoration: none; transition: all .2s; border: none;
+    }
+    .btn-primary {
+      background: var(--accent); color: #fff;
+    }
+    .btn-primary:hover { background: #6fa3ff; transform: translateY(-1px); }
+    .btn-outline {
+      background: transparent; color: var(--accent); border: 1px solid var(--accent);
+    }
+    .btn-outline:hover { background: rgba(79,142,247,.1); transform: translateY(-1px); }
+
+    /* Stats card */
+    .stats-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 32px; display: flex; flex-direction: column; gap: 24px;
+    }
+    .stat { display: flex; flex-direction: column; }
+    .stat-num {
+      font-family: var(--serif); font-size: 3.2rem; color: var(--accent3);
+      line-height: 1;
+    }
+    .stat-label { font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: .08em; margin-top: 4px; }
+    .stat-divider { height: 1px; background: var(--border); }
+
+    /* Noise overlay */
+    #hero::before {
+      content:''; position:absolute; inset:0; pointer-events:none;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+      opacity: .4;
+    }
+    .glow {
+      position:absolute; width:600px; height:600px; border-radius:50%;
+      background: radial-gradient(circle, rgba(79,142,247,.12) 0%, transparent 70%);
+      top:-100px; right:-100px; pointer-events:none;
     }
 
-    .menu a {
-      color: #f5f5f5;
-      text-decoration: none;
-      margin: 0 20px;
-      font-size: 17px;
-      font-weight: 500;
+    /* ── SECTIONS ── */
+    section { padding: 100px 48px; max-width: 1200px; margin: 0 auto; }
+    .section-label {
+      font-family: var(--mono); font-size: 11px; color: var(--accent);
+      letter-spacing: .14em; text-transform: uppercase;
+      display: flex; align-items: center; gap: 12px; margin-bottom: 16px;
     }
-
-    .menu a:hover {
-      color: #00aaff;
-    }
-
-    .hero {
-      text-align: center;
-      padding: 80px 20px;
-      background: white;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-      margin: 30px auto;
-      max-width: 900px;
-      border-radius: 8px;
-    }
-
-    .hero h1 {
-      font-size: 42px;
-      margin-bottom: 10px;
-      font-weight: 700;
-    }
-
-    .hero h2 {
-      font-size: 22px;
-      margin-bottom: 20px;
-      font-weight: 400;
-      color: #555;
-    }
-
-    .hero p {
-      font-size: 18px;
-      max-width: 700px;
-      margin: 0 auto;
-      color: #555;
-      line-height: 1.6;
-    }
-
-    .content {
-      max-width: 900px;
-      margin: 30px auto;
-      padding: 0 20px 40px;
-    }
-
+    .section-label::after { content:''; flex:1; height:1px; background: var(--border); }
     h2 {
-      font-size: 26px;
-      margin-bottom: 15px;
+      font-family: var(--serif); font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 400; margin-bottom: 56px; color: var(--text);
     }
 
-    h3 {
-      font-size: 20px;
-      margin-top: 20px;
-      margin-bottom: 5px;
+    /* ── SKILLS ── */
+    .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+    .skill-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 10px; padding: 24px 28px;
+      transition: border-color .2s, transform .2s;
+    }
+    .skill-card:hover { border-color: var(--accent); transform: translateY(-3px); }
+    .skill-card-icon { font-size: 1.6rem; margin-bottom: 12px; }
+    .skill-card-title {
+      font-family: var(--mono); font-size: 12px; color: var(--accent2);
+      letter-spacing: .08em; text-transform: uppercase; margin-bottom: 10px;
+    }
+    .skill-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+    .tag {
+      font-family: var(--mono); font-size: 11px; padding: 3px 9px;
+      border-radius: 3px; background: rgba(79,142,247,.1);
+      color: var(--accent); border: 1px solid rgba(79,142,247,.2);
     }
 
-    p {
-      line-height: 1.6;
+    /* ── EXPERIENCE ── */
+    .exp-list { display: flex; flex-direction: column; gap: 0; }
+    .exp-item {
+      display: grid; grid-template-columns: 200px 1fr;
+      gap: 40px; padding: 48px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .exp-item:first-child { border-top: 1px solid var(--border); }
+    .exp-meta { position: sticky; top: 100px; align-self: start; }
+    .exp-period { font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: .06em; }
+    .exp-company { font-weight: 600; color: var(--text); margin: 6px 0 4px; font-size: 14px; }
+    .exp-loc { font-family: var(--mono); font-size: 11px; color: var(--accent2); }
+    .exp-role { font-family: var(--serif); font-size: 1.4rem; color: var(--text); margin-bottom: 16px; }
+    .exp-bullets { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .exp-bullets li {
+      color: var(--muted); font-size: 14px; padding-left: 20px; position: relative; line-height: 1.7;
+    }
+    .exp-bullets li::before {
+      content: '→'; position: absolute; left: 0; color: var(--accent); font-size: 12px; top: 3px;
+    }
+    .exp-highlight { color: var(--accent3) !important; font-weight: 500; }
+
+    /* ── PROJECTS ── */
+    .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px; }
+    .project-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 32px;
+      transition: border-color .2s, transform .2s;
+      display: flex; flex-direction: column; gap: 12px;
+    }
+    .project-card:hover { border-color: var(--accent2); transform: translateY(-4px); }
+    .project-badge {
+      font-family: var(--mono); font-size: 10px; letter-spacing: .1em;
+      text-transform: uppercase; padding: 3px 10px; border-radius: 20px;
+      width: fit-content;
+    }
+    .badge-ai { background: rgba(125,211,176,.15); color: var(--accent2); border: 1px solid rgba(125,211,176,.3); }
+    .badge-saas { background: rgba(79,142,247,.15); color: var(--accent); border: 1px solid rgba(79,142,247,.3); }
+    .badge-migration { background: rgba(247,201,79,.15); color: var(--accent3); border: 1px solid rgba(247,201,79,.3); }
+    .badge-integration { background: rgba(200,120,255,.15); color: #c878ff; border: 1px solid rgba(200,120,255,.3); }
+    .project-title { font-family: var(--serif); font-size: 1.3rem; color: var(--text); }
+    .project-desc { color: var(--muted); font-size: 13.5px; line-height: 1.7; flex: 1; }
+    .project-impact {
+      font-family: var(--mono); font-size: 12px; color: var(--accent3);
+      padding-top: 12px; border-top: 1px solid var(--border);
+    }
+
+    /* ── EDUCATION ── */
+    .edu-list { display: flex; flex-direction: column; gap: 20px; }
+    .edu-item {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 10px; padding: 24px 28px;
+      display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 20px;
+    }
+    .edu-degree { font-family: var(--serif); font-size: 1.2rem; color: var(--text); }
+    .edu-school { color: var(--muted); font-size: 13px; margin-top: 4px; }
+    .edu-year { font-family: var(--mono); font-size: 12px; color: var(--accent); text-align: right; }
+
+    /* ── CONTACT ── */
+    #contact {
+      background: var(--card); border-top: 1px solid var(--border);
+      padding: 80px 48px; text-align: center; max-width: 100%; margin: 0;
+    }
+    #contact h2 { margin-bottom: 16px; }
+    .contact-sub { color: var(--muted); max-width: 500px; margin: 0 auto 40px; font-size: 15px; }
+    .contact-links { display: flex; justify-content: center; gap: 24px; flex-wrap: wrap; }
+    .contact-link {
+      display: flex; align-items: center; gap: 8px;
+      font-family: var(--mono); font-size: 13px; color: var(--text);
+      text-decoration: none; padding: 12px 24px;
+      border: 1px solid var(--border); border-radius: 6px;
+      transition: all .2s;
+    }
+    .contact-link:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+
+    /* ── FOOTER ── */
+    footer {
+      text-align: center; padding: 28px 48px;
+      font-family: var(--mono); font-size: 11px; color: var(--muted);
+      border-top: 1px solid var(--border); background: var(--bg);
+    }
+
+    /* ── ANIMATIONS ── */
+    .fade-in { opacity: 0; transform: translateY(20px); transition: opacity .6s ease, transform .6s ease; }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+    @media (max-width: 900px) {
+      nav { padding: 16px 24px; }
+      .nav-links { display: none; }
+      #hero { padding: 100px 24px 60px; }
+      .hero-grid { grid-template-columns: 1fr; gap: 40px; }
+      section { padding: 70px 24px; }
+      .exp-item { grid-template-columns: 1fr; gap: 12px; }
+      .exp-meta { position: static; }
+      .edu-item { grid-template-columns: 1fr; }
+      .edu-year { text-align: left; }
     }
   </style>
 </head>
-
 <body>
 
-  <nav class="menu">
-    <a href="index.html">Home</a>
-    <a href="projects.html">Projects</a>
-    <a href="about.html">About</a>
-    <a href="contact.html">Contact</a>
-  </nav>
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#">sp.portfolio</a>
+  <ul class="nav-links">
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
 
-  <div class="hero">
-    <h1>Suhani Patel</h1>
-    <h2>.NET Developer & AI Integration Engineer</h2>
-    <p>I build AI-powered .NET Core, Blazor, and React applications that automate workflows and reduce manual effort.</p>
+<!-- HERO -->
+<div id="hero">
+  <div class="glow"></div>
+  <div class="hero-grid">
+    <div>
+      <div class="hero-tag">Available for opportunities</div>
+      <h1>Suhani<br><em>Patel</em></h1>
+      <p class="hero-role">.NET Developer &amp; AI Integration Engineer</p>
+      <p class="hero-desc">
+        7+ years delivering production SaaS platforms for UK clients. Specialised in .NET Core, Blazor, React, and Next.js — with proven AI integration using OpenAI GPT, OCR, and event-driven automation.
+      </p>
+      <div class="hero-btns">
+        <a class="btn btn-primary" href="#projects">View Projects</a>
+        <a class="btn btn-outline" href="mailto:suhani.patel0906@gmail.com">Get in Touch</a>
+      </div>
+    </div>
+    <div class="stats-card fade-in">
+      <div class="stat">
+        <span class="stat-num">7+</span>
+        <span class="stat-label">years of experience</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat">
+        <span class="stat-num">15+</span>
+        <span class="stat-label">SaaS platforms delivered</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat">
+        <span class="stat-num">70%</span>
+        <span class="stat-label">reduction in manual data entry</span>
+      </div>
+    </div>
   </div>
+</div>
 
-  <div class="content">
-    <h2>Featured Work</h2>
-    <p>Explore my projects to see how I’ve used .NET, Blazor, React, and AI to solve real business problems.</p>
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-label">What I work with</div>
+  <h2>Technical Skills</h2>
+  <div class="skills-grid">
+    <div class="skill-card fade-in">
+      <div class="skill-card-icon">⚙️</div>
+      <div class="skill-card-title">Backend &amp; Architecture</div>
+      <div class="skill-tags">
+        <span class="tag">.NET Core</span><span class="tag">ASP.NET Core</span>
+        <span class="tag">C#</span><span class="tag">Web API</span>
+        <span class="tag">Entity Framework</span><span class="tag">Microservices</span>
+        <span class="tag">SignalR</span><span class="tag">LINQ</span><span class="tag">ADO.NET</span>
+      </div>
+    </div>
+    <div class="skill-card fade-in">
+      <div class="skill-card-icon">🎨</div>
+      <div class="skill-card-title">Frontend Engineering</div>
+      <div class="skill-tags">
+        <span class="tag">Blazor</span><span class="tag">React.js</span>
+        <span class="tag">Next.js</span><span class="tag">TypeScript</span>
+        <span class="tag">Angular</span><span class="tag">HTML5</span>
+        <span class="tag">CSS3</span><span class="tag">Bootstrap</span>
+      </div>
+    </div>
+    <div class="skill-card fade-in">
+      <div class="skill-card-icon">🤖</div>
+      <div class="skill-card-title">AI &amp; Automation</div>
+      <div class="skill-tags">
+        <span class="tag">OpenAI API</span><span class="tag">GPT Models</span>
+        <span class="tag">LLM Integration</span><span class="tag">OCR</span>
+        <span class="tag">Prompt Engineering</span><span class="tag">Copilot Agent</span>
+        <span class="tag">Trigger.dev</span><span class="tag">Event-Driven</span>
+      </div>
+    </div>
+    <div class="skill-card fade-in">
+      <div class="skill-card-icon">☁️</div>
+      <div class="skill-card-title">Cloud &amp; DevOps</div>
+      <div class="skill-tags">
+        <span class="tag">Azure</span><span class="tag">AWS</span>
+        <span class="tag">CI/CD</span><span class="tag">GitHub Actions</span><span class="tag">Vercel</span>
+      </div>
+    </div>
+    <div class="skill-card fade-in">
+      <div class="skill-card-icon">🗄️</div>
+      <div class="skill-card-title">Database</div>
+      <div class="skill-tags">
+        <span class="tag">SQL Server</span><span class="tag">Firebase</span>
+        <span class="tag">Stored Procedures</span><span class="tag">Query Optimisation</span>
+      </div>
+    </div>
+    <div class="skill-card fade-in">
+      <div class="skill-card-icon">🔐</div>
+      <div class="skill-card-title">APIs &amp; Security</div>
+      <div class="skill-tags">
+        <span class="tag">REST APIs</span><span class="tag">JWT</span>
+        <span class="tag">OAuth</span><span class="tag">reCAPTCHA v3</span>
+        <span class="tag">TDD</span><span class="tag">xUnit</span><span class="tag">NUnit</span>
+      </div>
+    </div>
   </div>
+</section>
 
+<!-- EXPERIENCE -->
+<section id="experience" style="max-width:1200px;margin:0 auto;">
+  <div class="section-label">Where I've worked</div>
+  <h2>Experience</h2>
+  <div class="exp-list">
+
+    <div class="exp-item fade-in">
+      <div class="exp-meta">
+        <div class="exp-period">Sep 2024 — Apr 2026</div>
+        <div class="exp-company">Magic Square Systems Ltd</div>
+        <div class="exp-loc">United Kingdom · Hybrid</div>
+      </div>
+      <div>
+        <div class="exp-role">Software Developer (Contract)</div>
+        <ul class="exp-bullets">
+          <li>Delivered full-lifecycle development across <strong>15+ SaaS platforms</strong> for UK clients in higher education, healthcare simulation, media, and automotive sectors.</li>
+          <li class="exp-highlight">Built an AI-powered document processing pipeline using OpenAI GPT + OCR, reducing manual data entry by 70% at Coventry University PGR+.</li>
+          <li>Developed a SQL-triggered WhatsApp notification workflow using Copilot Agent, fully automating manual communication steps.</li>
+          <li class="exp-highlight">Designed a QR-based onboarding &amp; cabin allocation engine for The Simulation Centre — reducing check-in time by 40–60% and eliminating allocation errors.</li>
+          <li>Led phased migration of Predict Media Sim from ASP.NET MVC to .NET Core with zero disruption to live users.</li>
+          <li>Replaced legacy CSV/FTPS ingestion with direct Autotrader Retailer API integration for real-time stock sync across four brands.</li>
+          <li>Implemented client-side image cropping &amp; compression, reducing upload sizes by up to 50%.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-item fade-in">
+      <div class="exp-meta">
+        <div class="exp-period">Sep 2019 — Jun 2022</div>
+        <div class="exp-company">Array Bit</div>
+        <div class="exp-loc">India</div>
+      </div>
+      <div>
+        <div class="exp-role">Software Developer</div>
+        <ul class="exp-bullets">
+          <li>Delivered multiple production .NET applications including Procure Safe, Atlica, Benchmark Broker System, and Dhivar Samaj.</li>
+          <li>Optimised stored procedures and built RESTful Web APIs, reducing bug reports by 25%.</li>
+          <li>Performed unit testing (xUnit, NUnit) and modularised legacy codebases to modern standards.</li>
+          <li>Mentored junior developers and conducted code reviews, improving team productivity and reducing onboarding time.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-item fade-in">
+      <div class="exp-meta">
+        <div class="exp-period">Jun 2016 — Jul 2019</div>
+        <div class="exp-company">Natrix Software</div>
+        <div class="exp-loc">India</div>
+      </div>
+      <div>
+        <div class="exp-role">Junior Software Developer</div>
+        <ul class="exp-bullets">
+          <li>Built ASP.NET MVC applications in 3-tier architecture, reducing manual HR effort by 30% and improving performance by 20%.</li>
+          <li>Designed RESTful API interfaces and implemented ADO.NET/LINQ for SQL Server interactions.</li>
+          <li>Achieved a 25% reduction in bug reports through systematic debugging and code reviews.</li>
+          <li class="exp-highlight">🏆 Awarded Performer of the Year 2017 for outstanding contribution to application delivery and team performance.</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-label">Highlights</div>
+  <h2>Key Projects</h2>
+  <div class="projects-grid">
+    <div class="project-card fade-in">
+      <span class="project-badge badge-ai">AI / Automation</span>
+      <div class="project-title">AI Document Processing Pipeline</div>
+      <p class="project-desc">Built an AI-powered pipeline using OpenAI GPT and OCR to automatically extract nationality, university, degree, grade, and pass date from documents. Integrated into Coventry University's PGR+ verification system.</p>
+      <div class="project-impact">↓ 70% reduction in manual data entry</div>
+      <div class="skill-tags" style="margin-top:12px;">
+        <span class="tag">OpenAI GPT</span><span class="tag">OCR</span><span class="tag">.NET Core</span><span class="tag">Blazor</span>
+      </div>
+    </div>
+    <div class="project-card fade-in">
+      <span class="project-badge badge-saas">SaaS / Platform</span>
+      <div class="project-title">QR Onboarding &amp; Cabin Allocation Engine</div>
+      <p class="project-desc">Designed a QR-based onboarding system for The Simulation Centre supporting sequential, group, and instructor-led modes. Eliminated manual allocation errors entirely.</p>
+      <div class="project-impact">↓ 40–60% faster participant check-in</div>
+      <div class="skill-tags" style="margin-top:12px;">
+        <span class="tag">Blazor</span><span class="tag">SQL Server</span><span class="tag">C#</span>
+      </div>
+    </div>
+    <div class="project-card fade-in">
+      <span class="project-badge badge-migration">Migration</span>
+      <div class="project-title">Predict Media Sim — MVC to .NET Core</div>
+      <p class="project-desc">Led the phased migration from legacy ASP.NET MVC to .NET Core, embedding Blazor components into the live system. Achieved zero disruption to authentication, database, or active users.</p>
+      <div class="project-impact">Zero downtime · Zero disruption</div>
+      <div class="skill-tags" style="margin-top:12px;">
+        <span class="tag">ASP.NET MVC</span><span class="tag">.NET Core</span><span class="tag">Blazor</span>
+      </div>
+    </div>
+    <div class="project-card fade-in">
+      <span class="project-badge badge-integration">Integration</span>
+      <div class="project-title">Autotrader Retailer API Integration</div>
+      <p class="project-desc">Replaced legacy CSV/FTPS ingestion with a direct Autotrader Retailer API integration enabling real-time stock synchronisation across four brands: Midlands Truck &amp; Van, Bell Truck &amp; Van, Used Vans 4U, and Used Trucks 4U.</p>
+      <div class="project-impact">Real-time sync · 4 brands supported</div>
+      <div class="skill-tags" style="margin-top:12px;">
+        <span class="tag">REST API</span><span class="tag">.NET Core</span><span class="tag">SQL Server</span>
+      </div>
+    </div>
+    <div class="project-card fade-in">
+      <span class="project-badge badge-ai">AI / Messaging</span>
+      <div class="project-title">SQL-Triggered WhatsApp Notifications</div>
+      <p class="project-desc">Developed a SQL-triggered WhatsApp notification workflow using Copilot Agent to detect new work packages in SQL Server and deliver instant alerts to assigned users. Fully removed manual communication steps.</p>
+      <div class="project-impact">100% manual communication eliminated</div>
+      <div class="skill-tags" style="margin-top:12px;">
+        <span class="tag">Copilot Agent</span><span class="tag">SQL Server</span><span class="tag">Event-Driven</span>
+      </div>
+    </div>
+    <div class="project-card fade-in">
+      <span class="project-badge badge-saas">SaaS / Real-time</span>
+      <div class="project-title">My Social Posts Blazor Dashboard</div>
+      <p class="project-desc">Delivered a Blazor admin dashboard to track posts, monitor comments, and reply as operator profiles. Integrated real-time SignalR notifications from a Next.js social platform.</p>
+      <div class="project-impact">Real-time updates via SignalR</div>
+      <div class="skill-tags" style="margin-top:12px;">
+        <span class="tag">Blazor</span><span class="tag">SignalR</span><span class="tag">Next.js</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="section-label">Academic background</div>
+  <h2>Education</h2>
+  <div class="edu-list">
+    <div class="edu-item fade-in">
+      <div>
+        <div class="edu-degree">MSc Computing</div>
+        <div class="edu-school">Wrexham Glyndŵr University, United Kingdom</div>
+      </div>
+      <div class="edu-year">2022 – 2024</div>
+    </div>
+    <div class="edu-item fade-in">
+      <div>
+        <div class="edu-degree">Master of Computer Applications</div>
+        <div class="edu-school">Uka Tarsadiya University, India</div>
+      </div>
+      <div class="edu-year">2014 – 2016</div>
+    </div>
+    <div class="edu-item fade-in">
+      <div>
+        <div class="edu-degree">Bachelor of Computer Applications</div>
+        <div class="edu-school">Veer Narmad South Gujarat University, India</div>
+      </div>
+      <div class="edu-year">2011 – 2014</div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<div id="contact">
+  <div class="section-label" style="justify-content:center;max-width:600px;margin:0 auto 16px;">Let's connect</div>
+  <h2>Get In Touch</h2>
+  <p class="contact-sub">I'm open to new opportunities and interesting projects. Feel free to reach out!</p>
+  <div class="contact-links">
+    <a class="contact-link" href="mailto:suhani.patel0906@gmail.com">
+      <span>✉</span> suhani.patel0906@gmail.com
+    </a>
+    <a class="contact-link" href="https://linkedin.com/in/suhani-patel-pjj90693" target="_blank" rel="noopener">
+      <span>🔗</span> LinkedIn Profile
+    </a>
+    <a class="contact-link" href="tel:+447442089045">
+      <span>📞</span> +44 7442 089045
+    </a>
+  </div>
+</div>
+
+<footer>
+  <span>© 2026 Suhani Patel · Built with ♥ for GitHub Pages</span>
+</footer>
+
+<script>
+  // Fade-in on scroll
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 80);
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
 </body>
 </html>
